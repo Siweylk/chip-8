@@ -21,7 +21,7 @@ pub fn delay_timer(tick_counter: Arc<AtomicU32>){
         //Timer is at 0 --> do something
         if delay_timer==0{
             delay_timer=60;
-            print!("Ha pasado 1 segundo\n");
+            //print!("Ha pasado 1 segundo\n");
         }
 
     }
@@ -46,7 +46,7 @@ pub fn sound_timer(tick_counter: Arc<AtomicU32>){
         //Timer is at 0 --> do something
         if sound_timer==0{
             sound_timer=600;
-            print!("Han pasado 10 segundos\n");
+            //print!("Han pasado 10 segundos\n");
         }
 
     }
