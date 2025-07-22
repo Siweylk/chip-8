@@ -1,27 +1,33 @@
-use std::sync::{Arc, atomic::{AtomicU32}};
+use super::machine::{Machine};
+use std::sync::{Arc, atomic::{AtomicU8}};
 
-use super::memory::{Memory, Stack};
 
 
-pub fn cpu(cpu_tick_counter: Arc<AtomicU32>){
+
+
+pub fn run(cpu_tick_counter: Arc<AtomicU8>){
     
-    let mut mem: Memory = Memory::new();
-    let mut stack: Stack = Stack::new();
+    let mut machine: Machine = Machine::new();
 
-    let mut PC: usize = 200;
+    let mut opcode: u16;
 
+    //Fetch first instruction when the machine starts
+    opcode = machine.fetch();
 
+    loop{
+        
+        //Execute and fetch ADD CLOCK SYNCRONIZATION!!!!!!!!!!!!!!!!
+        decode_callInstruction(opcode);
+        opcode = machine.fetch();
+    }
 }
 
-pub fn fetch(pc: &mut usize, mem: Memory) -> u16{
+pub fn decode_call_nstruction(opcode: u16){
 
-    let instruction : u16 = ((mem.read(*pc) as u16) << 8) | (mem.read(*pc+1) as u16);
-    *pc += 2;
-
-    instruction
-
+    match opcode{
+        1 => print!("Sigo mañana"),
+        _ => print!("AAAAAAAAAAA"),
+    }
 }
 
-pub fn execute(opcode: u32){
 
-}
