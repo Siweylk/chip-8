@@ -27,7 +27,7 @@ impl Screen{
         Self {window, buffer}
     }
 
-    pub fn set_pixel(&mut self, x: usize, y:usize){
+    pub fn flip_pixel(&mut self, x: usize, y:usize){
         if x < WIDTH && y < HEIGHT{
             self.buffer[y*WIDTH+x] ^= 0xFFFFFFFF;
             print!("Pixel {:?} {:?}\n", x, y);
@@ -37,5 +37,14 @@ impl Screen{
     pub fn update(&mut self){
         self.window.update_with_buffer(&self.buffer, WIDTH, HEIGHT).unwrap();
         print!("Screen updated\n");
+    }
+
+    pub fn clear_screen(&mut self){
+        for x in 0..64{
+            for y in 0..32{
+                self.buffer[y*WIDTH+x] = 0x00000000;
+            }
+        }
+        self.update();
     }
 }

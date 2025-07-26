@@ -44,7 +44,7 @@ pub struct SoundTimer {
 
 impl SoundTimer {
     pub fn new() -> Self {
-        Self { sound_timer: 600 }
+        Self { sound_timer: 100 }
     }
 
     pub fn sound_timer(&mut self, tick_counter: Arc<AtomicU8>) {
@@ -63,7 +63,7 @@ impl SoundTimer {
 
             //Timer is at 0 --> do something
             if self.sound_timer == 0 {
-                self.sound_timer = 600;
+                self.sound_timer = 100;
                 //print!("Han pasado 10 segundos\n");
             }
         }

@@ -2,7 +2,9 @@ use std::thread;
 use std::sync::{Arc, atomic::{AtomicU32}};
 use std::time::Duration;
 
+use crate::util::cpu::decode_call_instruction;
 use crate::util::screen::{Screen};
+use crate::util::machine::{Machine};
 
 mod util;
 
@@ -13,38 +15,23 @@ fn main() {
     let delay_timer_counter = Arc::clone(&tick_counter);
     let sound_timer_counter = Arc::clone(&tick_counter);
 
-    thread::spawn(move|| util::clock::clock(clock_counter));
+    //thread::spawn(move|| util::clock::clock(clock_counter));
 
-    thread::spawn(move|| util::timers::delay_timer(delay_timer_counter));
+    //thread::spawn(move|| util::timers::delay_timer(delay_timer_counter));
 
-    thread::spawn(move|| util::timers::sound_timer(sound_timer_counter));
+    //thread::spawn(move|| util::timers::sound_timer(sound_timer_counter));
 
-    //PRUEBA PANTALLA
-    let mut screen = Screen::new();
+    //PRUEBA instrucciones
+    let mut machine: Machine = Machine::new();
 
-    screen.update();
-    screen.set_pixel(1,1);
-    screen.set_pixel(2,2);
-    screen.set_pixel(3,3);
-    screen.set_pixel(4,4);
-    screen.set_pixel(5,5);
-    screen.set_pixel(6,6);
+    decode_call_instruction(&mut machine, 0x8989);
+
     
 
 
 
     //let rcv = rx.recv().unwrap();
     //println!("Main thread got {}", rcv);
-    thread::sleep(Duration::from_secs(3));
-
-    screen.update();
-
-    screen.set_pixel(2,2);
-    screen.set_pixel(4,4);
-    screen.set_pixel(6,6);
-    thread::sleep(Duration::from_secs(3));
-
-    screen.update();
 
     thread::sleep(Duration::from_secs(10));
     

@@ -21,7 +21,7 @@ impl Memory{
 
 //Creo un struct stack, para mantener la coherencia con el resto de estructuras del programa
 pub struct Stack{
-    pub stack: Vec<u16>,
+    pub stack: Vec<usize>,
 }
 
 impl Stack{
@@ -32,12 +32,12 @@ impl Stack{
         }
     }
 
-    pub fn push(&mut self, val:u16){
+    pub fn push(&mut self, val:usize){
         self.stack.push(val);
     }
 
-    pub fn pop(&mut self){
-        self.stack.pop();
+    pub fn pop(&mut self)-> usize{
+        self.stack.pop().expect("The stack is empty")
     }
 
     //Tal vez añadir peek, empty, size....
