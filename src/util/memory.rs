@@ -10,12 +10,20 @@ impl Memory{
         }
     }
 
-    pub fn read(&self, addr:usize) -> u8{
-        self.mem[addr]
+    pub fn read(&self, addr:u16) -> u8{
+        self.mem[addr as usize]
     }
 
-    pub fn write(&mut self, addr:usize, dat:u8){
-        self.mem[addr] = dat;
+    pub fn write(&mut self, addr:u16, dat:u8){
+        self.mem[addr as usize] = dat;
+    }
+
+    pub fn write_char_sprites(&mut self, chars: Vec<u8>){
+
+        for i in 0..79{
+            self.mem[0x50+i] = chars[i];
+        }
+
     }
 }
 
@@ -32,12 +40,12 @@ impl Stack{
         }
     }
 
-    pub fn push(&mut self, val:usize){
-        self.stack.push(val);
+    pub fn push(&mut self, val:u16){
+        self.stack.push(val as usize);
     }
 
-    pub fn pop(&mut self)-> usize{
-        self.stack.pop().expect("The stack is empty")
+    pub fn pop(&mut self)-> u16{
+        self.stack.pop().expect("The stack is empty") as u16
     }
 
     //Tal vez añadir peek, empty, size....

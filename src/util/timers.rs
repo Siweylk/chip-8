@@ -36,6 +36,10 @@ impl DelayTimer {
     pub fn set_delay_timer(&mut self, new_time: u8) {
         self.delay_timer = new_time;
     }
+
+    pub fn get_delay_timer(&mut self) -> u8 {
+        self.delay_timer
+    }
 }
 
 pub struct SoundTimer {
@@ -67,5 +71,9 @@ impl SoundTimer {
                 //print!("Han pasado 10 segundos\n");
             }
         }
+    }
+
+    pub fn set_sound_timer(&mut self, new_time: u8) {
+        self.sound_timer = new_time;
     }
 }

@@ -1,11 +1,13 @@
 use minifb::{Window,WindowOptions};
 
+
+
 const WIDTH: usize = 64;
 const HEIGHT: usize = 32;
 
 pub struct Screen{
-    window: Window,
-    buffer: Vec<u32>,
+    pub window: Window,
+    pub buffer: Vec<u32>,
 }
 
 impl Screen{
@@ -27,17 +29,28 @@ impl Screen{
         Self {window, buffer}
     }
 
+    pub fn get_pixel(&mut self, x: usize, y:usize) -> bool{
+        if x < WIDTH && y < HEIGHT{
+            self.buffer[y*WIDTH+x] != 0
+        }
+        else{
+            false
+        }
+
+    }
+
     pub fn flip_pixel(&mut self, x: usize, y:usize){
         if x < WIDTH && y < HEIGHT{
             self.buffer[y*WIDTH+x] ^= 0xFFFFFFFF;
-            print!("Pixel {:?} {:?}\n", x, y);
+            self.update();
         }
     }
 
     pub fn update(&mut self){
         self.window.update_with_buffer(&self.buffer, WIDTH, HEIGHT).unwrap();
-        print!("Screen updated\n");
     }
+
+    
 
     pub fn clear_screen(&mut self){
         for x in 0..64{
@@ -48,3 +61,4 @@ impl Screen{
         self.update();
     }
 }
+
