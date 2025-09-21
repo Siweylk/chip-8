@@ -179,20 +179,27 @@ impl Machine{
 
     pub fn instr_dxyn(&mut self, regx:u8, regy:u8, val:u16){
         
-        let x_coord = regx % 64;
-        let mut y_coord = regy % 32;
+        let x_coord = self.reg[regx as usize] % 64;
+        let mut y_coord = self.reg[regy as usize] % 32;
         self.reg[0x0F] = 0;
 
+
+        //SE ESTAN DIBUJANDO LOS BYTES AL REVES 11110000-->00001111
         //Start drawing
         for i in 0..val{
             let byte = self.mem.read(self.i+i);
             for j in 0..8{
-                if (byte >> j) & 1 == 1{
+                if (byte >> 7-j) & 1 == 1{
                     self.displ.flip_pixel((x_coord+j) as usize, y_coord as usize);
+                    print!("Se ha dibujado en: ({},{})\n", x_coord+j,y_coord);
 
                     if !self.displ.get_pixel((x_coord+j) as usize, y_coord as usize){
                         self.reg[0x0F]=1;
                     }
+                }
+
+                else{
+                    print!("No se ha dibujado en: ({},{}), val: {}\n", x_coord+j,y_coord, (byte >> j) & 1);
                 }
             }
             y_coord += 1;
@@ -291,7 +298,9 @@ impl Machine{
     }
     
     pub fn instr_fx29(&mut self, reg: u8){
-        self.i = 0x50 + self.reg[reg as usize] as u16;
+
+        self.i = 0x50 + self.reg[reg as usize] as u16 * 5;
+
     }
 
     pub fn instr_fx33(&mut self, reg: u8){

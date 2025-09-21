@@ -10,7 +10,7 @@ use crate::assets::sprites::font::CHARS;
 
 pub fn run(cpu_tick_counter: Arc<AtomicU8>){
     
-    let mut machine: Machine = Machine::new();
+    let  mut machine: Machine = Machine::new();
 
     //Load character sprites in memmory
     machine.load_char_sprites(CHARS.to_vec());
@@ -18,12 +18,12 @@ pub fn run(cpu_tick_counter: Arc<AtomicU8>){
     let mut opcode: u16;
 
 
-    decode_call_instruction(&mut machine, 0x6000);
+    /*decode_call_instruction(&mut machine, 0x6000);
     decode_call_instruction(&mut machine, 0x6100);
     decode_call_instruction(&mut machine, 0x620A);
     decode_call_instruction(&mut machine, 0xF229);
 
-    decode_call_instruction(&mut machine, 0xD015);
+    decode_call_instruction(&mut machine, 0xD015);*/
 
 
     //Fetch first instruction when the machine starts
