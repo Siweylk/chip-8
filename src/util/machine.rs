@@ -33,7 +33,6 @@ impl Machine{
     
 
     pub fn load_char_sprites(&mut self, chars: Vec<u8>){
-
         self.mem.write_char_sprites(chars);
     }
 
@@ -191,16 +190,16 @@ impl Machine{
             for j in 0..8{
                 if (byte >> 7-j) & 1 == 1{
                     self.displ.flip_pixel((x_coord+j) as usize, y_coord as usize);
-                    print!("Se ha dibujado en: ({},{})\n", x_coord+j,y_coord);
+                    //print!("Se ha dibujado en: ({},{})\n", x_coord+j,y_coord);
 
                     if !self.displ.get_pixel((x_coord+j) as usize, y_coord as usize){
                         self.reg[0x0F]=1;
                     }
                 }
 
-                else{
+                /*else{
                     print!("No se ha dibujado en: ({},{}), val: {}\n", x_coord+j,y_coord, (byte >> j) & 1);
-                }
+                }*/
             }
             y_coord += 1;
         }
